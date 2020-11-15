@@ -1,0 +1,86 @@
+<ng-container *ngIf="!expansion">
+  <mat-card >
+    <mat-card-content>
+      <form class="row" [formGroup]="productForm" (ngSubmit)="submit()">
+        <div class="col-12">
+            <mat-grid-list cols="3" rowHeight="6:1" gutterSize="10px">
+                <mat-grid-tile>
+                    <mat-form-field >
+                        <mat-label>Code</mat-label>
+                        <input matInput formControlName="code" [maxlength]="size">
+                        <mat-error *ngIf="productForm.get('code').hasError('isInvalid')">
+                            Code is <strong>not valid</strong>
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('code').hasError('subCategoryDoesntExist')">
+                            Does not exist the subcategory
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('code').hasError('required')">
+                            Code is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('code').hasError('minvalue')">
+                            Code doesn't have <strong>right size</strong>
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('code').hasError('notNumber')">
+                            Code has to be <strong>a number</strong>
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('code').hasError('exist')">
+                            Code already <strong>exists</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" class="marginElement">
+                        <mat-error *ngIf="productForm.get('name').hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button mat-button type="submit" [disabled]="!productForm.valid">Add</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<ng-container *ngIf="expansion">
+    <form class="row" [formGroup]="productForm" (ngSubmit)="submit()">
+        <mat-form-field>
+            <mat-label>Code</mat-label>
+            <span matPrefix class="black">{{prefix}} &nbsp;</span>
+            <input matInput formControlName="code" [maxlength]="size-prefix.length">
+            <mat-error *ngIf="productForm.get('code').hasError('isInvalid')">
+                Code is <strong>not valid</strong>
+            </mat-error>
+            <mat-error *ngIf="productForm.get('code').hasError('subCategoryDoesntExist')">
+                Does not exist the subcategory
+            </mat-error>
+            <mat-error *ngIf="productForm.get('code').hasError('required')">
+                Code is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="productForm.get('code').hasError('minvalue')">
+                Code doesn't have <strong>right size</strong>
+            </mat-error>
+            <mat-error *ngIf="productForm.get('code').hasError('notNumber')">
+                Code has to be <strong>a number</strong>
+            </mat-error>
+            <mat-error *ngIf="productForm.get('code').hasError('exist')">
+                Code already <strong>exists</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field >
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error *ngIf="productForm.get('name').hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button mat-button type="submit" [disabled]="!productForm.valid">Add</button>
+    </form>
+    
+</ng-container>
+
+  

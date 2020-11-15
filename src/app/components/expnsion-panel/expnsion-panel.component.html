@@ -1,0 +1,32 @@
+<ng-container *ngIf="!isLoading">
+  <ng-container *ngFor="let product of productsToPrint; let i = index" >
+    <mat-expansion-panel (click)="this.isExpanded[i] = !this.isExpanded[i]" [disabled]="level === nivelMax || children[i].length===0">
+        <mat-expansion-panel-header class="right-aligned-header" collapsedHeight="110px" expandedHeight="110px">
+          <mat-panel-title class="minWidth">
+            {{product.code}} {{product.name}}
+          </mat-panel-title>
+          <mat-panel-description *ngIf="level<nivelMax">
+            <app-creation-panel (click)="$event.stopPropagation()" 
+                  [size]="nivelMax*2" 
+                  [products]="children[i]" 
+                  [prefix]="product.code.toString(10).substring(0, level*2)"
+                  (addProduct)="refreshList($event)" 
+                  [expansion]="true">
+            </app-creation-panel>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-container *ngIf="continue() && isExpanded[i]">
+          <app-expnsion-panel 
+            (click)="$event.stopPropagation()" 
+            [products]="children[i]"
+             
+            [level]="level+1" 
+            [nivelMax]="nivelMax">
+          </app-expnsion-panel>
+        </ng-container>
+      </mat-expansion-panel>
+  </ng-container>
+</ng-container>
+
+
+
