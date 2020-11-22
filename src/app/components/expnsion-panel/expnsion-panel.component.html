@@ -1,17 +1,25 @@
-<ng-container *ngIf="!isLoading">
+<ng-container>
   <ng-container *ngFor="let product of productsToPrint; let i = index" >
     <mat-expansion-panel (click)="this.isExpanded[i] = !this.isExpanded[i]" [disabled]="level === nivelMax || children[i].length===0">
         <mat-expansion-panel-header class="right-aligned-header" collapsedHeight="110px" expandedHeight="110px">
-          <mat-panel-title class="minWidth">
+          <mat-panel-title class="maxWidth">
             {{product.code}} {{product.name}}
           </mat-panel-title>
-          <mat-panel-description *ngIf="level<nivelMax">
-            <app-creation-panel (click)="$event.stopPropagation()" 
-                  [size]="nivelMax*2" 
-                  [products]="children[i]" 
-                  [prefix]="product.code.toString(10).substring(0, level*2)"
-                  (addProduct)="refreshList($event)" 
-                  [expansion]="true">
+          <mat-panel-description *ngIf="level<nivelMax" class="minWidth">
+            <button mat-button (click)="$event.stopPropagation(); this.showCreation[i] = !this.showCreation[i] " >
+              <ng-container *ngIf="!this.showCreation[i]">
+                <mat-icon>add_circle_outline</mat-icon>
+              </ng-container>
+              <ng-container *ngIf="this.showCreation[i]">
+                <mat-icon>remove_circle_outline</mat-icon>
+              </ng-container>
+            </button>
+            <app-creation-panel 
+              (click)="$event.stopPropagation(); " *ngIf="this.showCreation[i]"
+              [size]="nivelMax*2" 
+              [prefix]="product.code.toString(10).substring(0, level*2)"
+              (addProduct)="refreshList($event)" 
+              [expansion]="true">
             </app-creation-panel>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -19,7 +27,6 @@
           <app-expnsion-panel 
             (click)="$event.stopPropagation()" 
             [products]="children[i]"
-             
             [level]="level+1" 
             [nivelMax]="nivelMax">
           </app-expnsion-panel>

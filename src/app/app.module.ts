@@ -18,6 +18,8 @@ import { ExpnsionPanelComponent } from './components/expnsion-panel/expnsion-pan
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 
 /* Services */
@@ -38,7 +40,7 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     BrowserModule,
     HttpClientModule,
     APP_ROUTING,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatExpansionModule,
@@ -47,7 +49,9 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatCardModule,
     MatInputModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [
     HomeService,

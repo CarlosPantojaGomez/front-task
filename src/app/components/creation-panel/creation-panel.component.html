@@ -8,22 +8,22 @@
                     <mat-form-field >
                         <mat-label>Code</mat-label>
                         <input matInput formControlName="code" [maxlength]="size">
-                        <mat-error *ngIf="productForm.get('code').hasError('isInvalid')">
+                        <mat-error *ngIf="productForm.get('code').hasError('isInvalid') && !productForm.get('code').pristine">
                             Code is <strong>not valid</strong>
                         </mat-error>
-                        <mat-error *ngIf="productForm.get('code').hasError('subCategoryDoesntExist')">
+                        <mat-error *ngIf="productForm.get('code').hasError('subCategoryDoesntExist') && !productForm.get('code').pristine">
                             Does not exist the subcategory
                         </mat-error>
-                        <mat-error *ngIf="productForm.get('code').hasError('required')">
+                        <mat-error *ngIf="productForm.get('code').hasError('required') && !productForm.get('code').pristine">
                             Code is <strong>required</strong>
                         </mat-error>
-                        <mat-error *ngIf="productForm.get('code').hasError('minvalue')">
+                        <mat-error *ngIf="productForm.get('code').hasError('minvalue') && !productForm.get('code').pristine">
                             Code doesn't have <strong>right size</strong>
                         </mat-error>
-                        <mat-error *ngIf="productForm.get('code').hasError('notNumber')">
+                        <mat-error *ngIf="productForm.get('code').hasError('notNumber') && !productForm.get('code').pristine">
                             Code has to be <strong>a number</strong>
                         </mat-error>
-                        <mat-error *ngIf="productForm.get('code').hasError('exist')">
+                        <mat-error *ngIf="productForm.get('code').hasError('exist') && !productForm.get('code').pristine">
                             Code already <strong>exists</strong>
                         </mat-error>
                     </mat-form-field>
@@ -32,13 +32,16 @@
                     <mat-form-field >
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" class="marginElement">
-                        <mat-error *ngIf="productForm.get('name').hasError('required')">
+                        <mat-error *ngIf="productForm.get('name').hasError('required') && !productForm.get('name').pristine">
                             Name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                    <button mat-button type="submit" [disabled]="!productForm.valid">Add</button>
+                    <div class="example-button-row">
+                        <button mat-button type="submit" [disabled]="!productForm.valid">Add</button>
+                        <button mat-raised-button color="primary" type="button" (click)=reset() >Reset</button>
+                    </div>
                 </mat-grid-tile>
             </mat-grid-list>
         </div>
@@ -47,38 +50,39 @@
   </mat-card>
 </ng-container>
 <ng-container *ngIf="expansion">
+    
     <form class="row" [formGroup]="productForm" (ngSubmit)="submit()">
         <mat-form-field>
             <mat-label>Code</mat-label>
             <span matPrefix class="black">{{prefix}} &nbsp;</span>
-            <input matInput formControlName="code" [maxlength]="size-prefix.length">
-            <mat-error *ngIf="productForm.get('code').hasError('isInvalid')">
+            <input matInput formControlName="code" [maxlength]="size-prefix.length" (keydown)="$event.stopPropagation()">
+            <mat-error *ngIf="productForm.get('code').hasError('isInvalid') && !productForm.get('code').pristine">
                 Code is <strong>not valid</strong>
             </mat-error>
-            <mat-error *ngIf="productForm.get('code').hasError('subCategoryDoesntExist')">
+            <mat-error *ngIf="productForm.get('code').hasError('subCategoryDoesntExist') && !productForm.get('code').pristine">
                 Does not exist the subcategory
             </mat-error>
-            <mat-error *ngIf="productForm.get('code').hasError('required')">
+            <mat-error *ngIf="productForm.get('code').hasError('required') && !productForm.get('code').pristine">
                 Code is <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="productForm.get('code').hasError('minvalue')">
+            <mat-error *ngIf="productForm.get('code').hasError('minvalue') && !productForm.get('code').pristine">
                 Code doesn't have <strong>right size</strong>
             </mat-error>
-            <mat-error *ngIf="productForm.get('code').hasError('notNumber')">
+            <mat-error *ngIf="productForm.get('code').hasError('notNumber') && !productForm.get('code').pristine">
                 Code has to be <strong>a number</strong>
             </mat-error>
-            <mat-error *ngIf="productForm.get('code').hasError('exist')">
+            <mat-error *ngIf="productForm.get('code').hasError('exist') && !productForm.get('code').pristine">
                 Code already <strong>exists</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field >
             <mat-label>Name</mat-label>
-            <input matInput formControlName="name">
-            <mat-error *ngIf="productForm.get('name').hasError('required')">
+            <input matInput formControlName="name" (keydown)="$event.stopPropagation()">
+            <mat-error *ngIf="productForm.get('name').hasError('required') && !productForm.get('name').pristine">
                 Name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
-        <button mat-button type="submit" [disabled]="!productForm.valid">Add</button>
+        <button mat-button type="submit" color="primary" [disabled]="!productForm.valid">Add</button>
     </form>
     
 </ng-container>

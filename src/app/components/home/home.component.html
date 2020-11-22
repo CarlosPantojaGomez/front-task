@@ -1,7 +1,11 @@
 <div class="main-container">
     <ng-container *ngIf="loaded">
         <h3>Create new product</h3>
-        <app-creation-panel [size]="nivelMax*2" [products]="products" (addProduct)="addProduct($event)"></app-creation-panel>
+        <app-creation-panel [size]="nivelMax*2" 
+            (addProduct)="addProduct($event)" 
+            (removeProduct)="removeAll()" 
+            (resetData)="resetData()">
+        </app-creation-panel>
         <h3>Products list</h3>
         <app-expnsion-panel [products]="products" [level]="1" [nivelMax]="nivelMax" [newproduct]="newProduct"></app-expnsion-panel>
     </ng-container>
